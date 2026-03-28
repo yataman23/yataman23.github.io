@@ -1,1 +1,394 @@
 
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polityka prywatności — MojeRachunki Lite</title>
+  <meta name="description" content="Polityka prywatności aplikacji MojeRachunki Lite. Dowiedz się jakie dane zbieramy i jak je chronimy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:       #2563EB;
+      --blue-dark:  #1D4ED8;
+      --blue-light: #EFF6FF;
+      --dark:       #0F172A;
+      --gray:       #64748B;
+      --light:      #F8FAFC;
+      --white:      #FFFFFF;
+      --border:     #E2E8F0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 64px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.05rem; color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-logo span {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px;
+      background: var(--blue); border-radius: 9px;
+      color: #fff; font-size: 1rem;
+    }
+    .nav-back {
+      color: var(--gray); font-size: .9rem; text-decoration: none;
+      font-weight: 500; transition: color .2s;
+    }
+    .nav-back:hover { color: var(--blue); }
+
+    /* HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      padding: 64px 5% 48px;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .page-hero p {
+      color: var(--gray); font-size: 1rem;
+      max-width: 520px; margin: 0 auto;
+    }
+    .updated-badge {
+      display: inline-block;
+      background: #DBEAFE; color: var(--blue);
+      padding: 4px 14px; border-radius: 99px;
+      font-size: .8rem; font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 5% 80px;
+    }
+
+    .section {
+      margin-bottom: 48px;
+    }
+
+    .section h2 {
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+
+    .section p {
+      font-size: .95rem; color: #334155;
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    .section ul {
+      list-style: none;
+      margin: 12px 0;
+    }
+    .section ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .95rem; color: #334155;
+      padding: 6px 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .section ul li:last-child { border-bottom: none; }
+    .section ul li::before {
+      content: '✓';
+      color: var(--blue);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .highlight-box {
+      background: var(--blue-light);
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+    .highlight-box p {
+      color: #1E40AF !important;
+      margin: 0 !important;
+      font-size: .92rem !important;
+    }
+    .highlight-box strong { color: #1D4ED8; }
+
+    .warning-box {
+      background: #FFFBEB;
+      border-left: 4px solid #F59E0B;
+      border-radius: 0 12px 12px 0;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+    .warning-box p {
+      color: #92400E !important;
+      margin: 0 !important;
+      font-size: .92rem !important;
+    }
+
+    .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .permission-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .permission-icon {
+      font-size: 1.3rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .permission-card h4 {
+      font-size: .9rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 4px;
+    }
+    .permission-card p {
+      font-size: .82rem; color: var(--gray);
+      margin: 0 !important;
+    }
+
+    .contact-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .contact-box h3 {
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .contact-box p {
+      color: var(--gray); margin-bottom: 16px !important;
+    }
+    .contact-box a {
+      display: inline-block;
+      background: var(--blue); color: #fff;
+      padding: 10px 24px; border-radius: 8px;
+      text-decoration: none; font-weight: 600;
+      font-size: .9rem;
+      transition: background .2s;
+    }
+    .contact-box a:hover { background: var(--blue-dark); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 32px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; color: #fff; text-decoration: none;
+    }
+    .footer-logo span {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
+      background: var(--blue); border-radius: 8px; font-size: .9rem;
+    }
+    footer p { color: #64748B; font-size: .82rem; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a {
+      color: #64748B; font-size: .82rem;
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    @media (max-width: 640px) {
+      .content { padding: 40px 5% 60px; }
+      .page-hero { padding: 48px 5% 36px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <span>📋</span>
+    MojeRachunki Lite
+  </a>
+  <a class="nav-back" href="index.html">← Wróć do strony głównej</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="updated-badge">Ostatnia aktualizacja: 21 marca 2026</div>
+  <h1>Polityka prywatności</h1>
+  <p>Krótko i na temat — co zbieramy, czego nie zbieramy i dlaczego Twoje dane finansowe nigdy nie opuszczają Twojego telefonu.</p>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- 1. KTO JEST ADMINISTRATOREM -->
+  <div class="section">
+    <h2>1. Administrator danych</h2>
+    <p>Administratorem aplikacji <strong>MojeRachunki Lite</strong> jest jej twórca, dostępny pod adresem e-mail podanym w sekcji Kontakt. Aplikacja jest dostępna bezpłatnie w sklepie Google Play.</p>
+  </div>
+
+  <!-- 2. JAKICH DANYCH NIE ZBIERAMY -->
+  <div class="section">
+    <h2>2. Czego NIE zbieramy</h2>
+    <div class="highlight-box">
+      <p><strong>MojeRachunki Lite nie wymaga konta, e-maila ani rejestracji.</strong> Twoje dane finansowe są przechowywane wyłącznie lokalnie na Twoim urządzeniu i nigdy nie są wysyłane na żadne serwery.</p>
+    </div>
+    <ul>
+      <li>Nie zbieramy danych osobowych (imię, e-mail, telefon)</li>
+      <li>Nie zbieramy danych finansowych — rachunki, kwoty i historia płatności pozostają wyłącznie na Twoim urządzeniu</li>
+      <li>Nie zbieramy danych lokalizacyjnych</li>
+      <li>Nie używamy analityki (Firebase, Mixpanel itp.)</li>
+      <li>Nie śledzmy zachowania użytkownika w aplikacji</li>
+      <li>Nie udostępniamy żadnych danych podmiotom trzecim (poza AdMob — patrz sekcja 4)</li>
+    </ul>
+  </div>
+
+  <!-- 3. UPRAWNIENIA -->
+  <div class="section">
+    <h2>3. Uprawnienia aplikacji</h2>
+    <p>Aplikacja prosi o następujące uprawnienia systemowe:</p>
+    <div class="permission-grid">
+      <div class="permission-card">
+        <div class="permission-icon">📷</div>
+        <div>
+          <h4>Aparat (CAMERA)</h4>
+          <p>Używany wyłącznie do skanowania kodów QR i kreskowych z faktur. Aplikacja nie zapisuje zdjęć ani filmów.</p>
+        </div>
+      </div>
+      <div class="permission-card">
+        <div class="permission-icon">🔔</div>
+        <div>
+          <h4>Powiadomienia (POST_NOTIFICATIONS)</h4>
+          <p>Wysyłanie przypomnień o nadchodzących terminach płatności. Wymagane na Android 13+. Możesz wyłączyć w ustawieniach systemu.</p>
+        </div>
+      </div>
+      <div class="permission-card">
+        <div class="permission-icon">🔄</div>
+        <div>
+          <h4>Rozruch (RECEIVE_BOOT_COMPLETED)</h4>
+          <p>Ponowne zaplanowanie powiadomień po restarcie telefonu. Bez tego uprawnienia przypomnienia przestałyby działać po wyłączeniu urządzenia.</p>
+        </div>
+      </div>
+      <div class="permission-card">
+        <div class="permission-icon">📳</div>
+        <div>
+          <h4>Wibracja (VIBRATE) i WAKE_LOCK</h4>
+          <p>Wibracja towarzysząca powiadomieniom. WAKE_LOCK zapobiega uśpieniu procesora podczas dostarczania powiadomienia.</p>
+        </div>
+      </div>
+    </div>
+    <p>Żadne z powyższych uprawnień nie jest wykorzystywane do zbierania ani przesyłania danych osobowych.</p>
+  </div>
+
+  <!-- 4. REKLAMY ADMOB -->
+  <div class="section">
+    <h2>4. Reklamy — Google AdMob</h2>
+    <p>Aplikacja wyświetla reklamy pełnoekranowe (interstitial) za pośrednictwem usługi <strong>Google AdMob</strong>. Jest to jedyny przypadek, w którym dane mogą być przetwarzane poza Twoim urządzeniem.</p>
+    <div class="warning-box">
+      <p><strong>Ważne:</strong> Google może zbierać identyfikator urządzenia (Advertising ID) i dane dotyczące aktywności reklamowej zgodnie z własną polityką prywatności. Nie mamy kontroli nad danymi zbieranymi przez Google AdMob.</p>
+    </div>
+    <ul>
+      <li>Reklamy wyświetlane są nie częściej niż raz na 3 minuty</li>
+      <li>Możesz zresetować lub wyłączyć personalizację reklam w ustawieniach Google na swoim urządzeniu (<em>Ustawienia → Google → Reklamy</em>)</li>
+      <li>Polityka prywatności Google: <strong>policies.google.com/privacy</strong></li>
+    </ul>
+  </div>
+
+  <!-- 5. LOKALNE PRZECHOWYWANIE DANYCH -->
+  <div class="section">
+    <h2>5. Lokalne przechowywanie danych</h2>
+    <p>Wszystkie dane wprowadzone przez użytkownika (rachunki, kwoty, historia płatności, ustawienia) są przechowywane w lokalnej bazie danych <strong>SQLite</strong> na Twoim urządzeniu.</p>
+    <ul>
+      <li>Dane nie są synchronizowane z chmurą</li>
+      <li>Dane nie są wysyłane na żadne serwery</li>
+      <li>Usunięcie aplikacji trwale usuwa wszystkie dane z urządzenia</li>
+      <li>Funkcja Kopia zapasowa pozwala ręcznie wyeksportować plik bazy danych — jest on przechowywany tam, gdzie użytkownik go zapisze</li>
+    </ul>
+  </div>
+
+  <!-- 6. KAMERA I SKANER QR -->
+  <div class="section">
+    <h2>6. Kamera i skaner QR</h2>
+    <p>Aparat jest uruchamiany wyłącznie gdy użytkownik świadomie otworzy ekran skanowania. Podgląd z kamery jest przetwarzany lokalnie przez bibliotekę ML Kit (offline) — żadne dane obrazu nie są wysyłane do zewnętrznych serwerów.</p>
+    <ul>
+      <li>Aplikacja nie zapisuje zdjęć ani nagrań</li>
+      <li>Odczytane dane (kwota, numer konta) są wpisywane do formularza wyłącznie na Twoim urządzeniu</li>
+      <li>Po zamknięciu ekranu skanera kamera jest natychmiast zatrzymywana</li>
+    </ul>
+  </div>
+
+  <!-- 7. DZIECI -->
+  <div class="section">
+    <h2>7. Dzieci i małoletni</h2>
+    <p>Aplikacja nie jest skierowana do dzieci poniżej 13. roku życia i świadomie nie zbieramy danych od dzieci. Jeśli uważasz, że dziecko korzysta z aplikacji w sposób niezgodny z niniejszą polityką — skontaktuj się z nami.</p>
+  </div>
+
+  <!-- 8. ZMIANY -->
+  <div class="section">
+    <h2>8. Zmiany polityki prywatności</h2>
+    <p>O wszelkich istotnych zmianach w polityce prywatności poinformujemy przez aktualizację tej strony oraz zmianę daty "Ostatnia aktualizacja" na górze dokumentu. Zachęcamy do regularnego sprawdzania tej strony.</p>
+    <p>Dalsze korzystanie z aplikacji po opublikowaniu zmian oznacza akceptację zaktualizowanej polityki.</p>
+  </div>
+
+  <!-- 9. KONTAKT -->
+  <div class="section">
+    <h2>9. Kontakt</h2>
+    <p>Masz pytania dotyczące prywatności lub chcesz zgłosić naruszenie? Napisz do nas:</p>
+    <div class="contact-box">
+      <h3>Skontaktuj się z nami</h3>
+      <p>Odpowiemy w ciągu 7 dni roboczych.</p>
+      <a href="mailto:twoj-email@example.com">Napisz wiadomość</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">
+    <span>📋</span>
+    MojeRachunki Lite
+  </a>
+  <p>© 2026 MojeRachunki Lite. Wszelkie prawa zastrzeżone.</p>
+  <div class="footer-links">
+    <a href="index.html#pomoc">Pomoc</a>
+    <a href="privacy.html" style="color:#fff;">Polityka prywatności</a>
+    <a href="mailto:twoj-email@example.com">Kontakt</a>
+  </div>
+</footer>
+
+</body>
+</html>
