@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Polityka Prywatności — Postomat</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 32px 16px; color: #1f2937; line-height: 1.7; }
+    h1 { color: #24B617; font-size: 28px; margin-bottom: 8px; }
+    h2 { color: #1a8f10; font-size: 18px; margin-top: 32px; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    a { color: #24B617; }
+    .contact { background: #f0fdf4; border-left: 4px solid #24B617; padding: 16px; border-radius: 4px; margin-top: 32px; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #e5e7eb; }
+      h1 { color: #4ade80; }
+      h2 { color: #4ade80; border-color: #374151; }
+      .contact { background: #1a2e1a; }
+    }
+  </style>
+</head>
+<body>
+  <h1>📮 Polityka Prywatności</h1>
+  <p class="meta">Aplikacja <strong>Postomat</strong> | Ostatnia aktualizacja: 1 lipca 2025</p>
+
+  <p>Postomat to aplikacja mobilna pomagająca właścicielom małych firm generować treści do mediów społecznościowych przy pomocy sztucznej inteligencji. Niniejsza Polityka Prywatności wyjaśnia, jakie dane zbieramy, w jaki sposób je wykorzystujemy i jakie masz prawa.</p>
+
+  <h2>1. Administrator danych</h2>
+  <p>Administratorem Twoich danych osobowych jest deweloper aplikacji Postomat. W sprawach prywatności skontaktuj się przez email podany w sekcji Kontakt.</p>
+
+  <h2>2. Jakie dane zbieramy</h2>
+  <h3>2.1 Dane konta (Google Sign-In)</h3>
+  <ul>
+    <li>Adres e-mail</li>
+    <li>Imię i nazwisko</li>
+    <li>Zdjęcie profilowe</li>
+    <li>Unikalny identyfikator Google (UID)</li>
+  </ul>
+  <p>Dane te są przekazywane przez Google podczas logowania i przechowywane w Firebase Authentication.</p>
+
+  <h3>2.2 Dane profilu firmy (opcjonalne)</h3>
+  <ul>
+    <li>Nazwa firmy</li>
+    <li>Numer telefonu</li>
+    <li>Adres e-mail firmy</li>
+    <li>Strona internetowa</li>
+    <li>Adres fizyczny</li>
+    <li>Godziny otwarcia</li>
+    <li>Uchwyty mediów społecznościowych (Instagram, Facebook, TikTok)</li>
+  </ul>
+  <p>Dane profilu firmy są dobrowolne i przechowywane w Firebase Firestore.</p>
+
+  <h3>2.3 Treści generowane</h3>
+  <ul>
+    <li>Tematy postów wpisywane przez użytkownika</li>
+    <li>Wybrane parametry generowania (typ treści, platforma, branża)</li>
+    <li>Wygenerowane teksty postów (historia)</li>
+  </ul>
+  <p><strong>Ważne:</strong> Tematy i parametry wpisane przez użytkownika są wysyłane do Groq API (Groq Inc., USA) w celu generowania tekstu przez model językowy AI. Groq przetwarza te dane na swoich serwerach zgodnie z własną polityką prywatności.</p>
+
+  <h3>2.4 Dane reklamowe (AdMob)</h3>
+  <p>Aplikacja wyświetla reklamy za pośrednictwem Google AdMob. AdMob może zbierać identyfikatory urządzeń i inne dane do wyświetlania spersonalizowanych reklam, zgodnie z <a href="https://policies.google.com/privacy">Polityką Prywatności Google</a>.</p>
+
+  <h3>2.5 Dane analityczne (Firebase Analytics)</h3>
+  <p>Zbieramy anonimowe dane o użytkowaniu aplikacji (np. które ekrany są odwiedzane, liczba generacji) w celu ulepszania aplikacji.</p>
+
+  <h2>3. Jak wykorzystujemy dane</h2>
+  <ul>
+    <li>Zapewnienie działania konta użytkownika i synchronizacji danych</li>
+    <li>Generowanie spersonalizowanych treści marketingowych przy pomocy AI</li>
+    <li>Śledzenie dziennego limitu generacji (plan Free)</li>
+    <li>Wyświetlanie reklam użytkownikom planu Free</li>
+    <li>Analiza użytkowania w celu ulepszania aplikacji</li>
+  </ul>
+
+  <h2>4. Podstawa prawna przetwarzania (RODO)</h2>
+  <ul>
+    <li><strong>Wykonanie umowy</strong> — przetwarzanie niezbędne do świadczenia usługi (Art. 6 ust. 1 lit. b RODO)</li>
+    <li><strong>Zgoda</strong> — dla reklam spersonalizowanych (Art. 6 ust. 1 lit. a RODO)</li>
+    <li><strong>Uzasadniony interes</strong> — analityka w celu ulepszania aplikacji (Art. 6 ust. 1 lit. f RODO)</li>
+  </ul>
+
+  <h2>5. Udostępnianie danych stronom trzecim</h2>
+  <ul>
+    <li><strong>Google (Firebase, AdMob, Analytics)</strong> — infrastruktura chmurowa i reklamowa</li>
+    <li><strong>Groq Inc. (USA)</strong> — przetwarzanie zapytań AI (tematy postów wysyłane do modelu językowego)</li>
+  </ul>
+  <p>Nie sprzedajemy Twoich danych osobowych żadnym podmiotom trzecim.</p>
+
+  <h2>6. Transfer danych poza EOG</h2>
+  <p>Dane mogą być przetwarzane poza Europejskim Obszarem Gospodarczym przez Google (USA) i Groq Inc. (USA). Google korzysta ze standardowych klauzul umownych zatwierdzonych przez Komisję Europejską. Groq przetwarza dane zgodnie z obowiązującymi przepisami.</p>
+
+  <h2>7. Twoje prawa (RODO)</h2>
+  <ul>
+    <li><strong>Dostęp</strong> — możesz zażądać kopii swoich danych</li>
+    <li><strong>Sprostowanie</strong> — możesz poprawić nieprawidłowe dane w ustawieniach aplikacji</li>
+    <li><strong>Usunięcie</strong> — możesz usunąć konto i wszystkie dane przez ustawienia aplikacji lub kontaktując się z nami</li>
+    <li><strong>Przenoszenie</strong> — możesz otrzymać dane w formacie strukturyzowanym</li>
+    <li><strong>Sprzeciw</strong> — możesz sprzeciwić się przetwarzaniu opartemu na uzasadnionym interesie</li>
+    <li><strong>Wycofanie zgody</strong> — na reklamy spersonalizowane w dowolnym momencie w ustawieniach aplikacji</li>
+  </ul>
+
+  <h2>8. Przechowywanie danych</h2>
+  <p>Dane konta i profilu firmy przechowujemy przez czas korzystania z aplikacji. Po usunięciu konta dane są usuwane w ciągu 30 dni. Logi analityczne są przechowywane przez maksymalnie 14 miesięcy.</p>
+
+  <h2>9. Bezpieczeństwo</h2>
+  <p>Dane są przechowywane w Firebase (Google Cloud) z szyfrowaniem w tranzycie (HTTPS) i w spoczynku. Dostęp do danych jest ograniczony regułami bezpieczeństwa Firestore — każdy użytkownik ma dostęp tylko do swoich danych.</p>
+
+  <h2>10. Dzieci</h2>
+  <p>Aplikacja nie jest przeznaczona dla osób poniżej 13 roku życia. Nie zbieramy świadomie danych od dzieci.</p>
+
+  <h2>11. Zmiany w polityce</h2>
+  <p>O istotnych zmianach w polityce prywatności poinformujemy w aplikacji lub przez email. Aktualna wersja jest zawsze dostępna pod tym adresem.</p>
+
+  <div class="contact">
+    <h2 style="margin-top:0; border:none;">12. Kontakt</h2>
+    <p>W sprawach dotyczących prywatności skontaktuj się z nami:<br>
+    <strong>Email:</strong> <a href="mailto:privacy@postomat.app">privacy@postomat.app</a><br>
+    <strong>Aplikacja:</strong> Postomat — Generator Postów AI</p>
+  </div>
+</body>
+</html>

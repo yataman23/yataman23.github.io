@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MojeRachunki Lite — Zarządzaj rachunkami offline</title>
+  <title>Twoje Rachunki — Zarządzaj rachunkami offline</title>
   <meta name="description" content="Bezpłatna aplikacja do zarządzania rachunkami. Działa w 100% offline. Zero chmury, zero rejestracji. Powiadomienia, historia, statystyki." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -51,8 +51,8 @@
     .nav-logo span {
       display: inline-flex; align-items: center; justify-content: center;
       width: 36px; height: 36px;
-      background: var(--blue); border-radius: 10px;
-      color: #fff; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 10px;
+      color: #fff; font-size: 1.1rem; font-weight: 900; font-family: 'Arial Black', Arial, sans-serif;
     }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
@@ -188,6 +188,121 @@
     }
     .mock-nav-item.active { color: var(--blue); }
     .mock-nav-dot { width: 16px; height: 2px; border-radius: 2px; background: currentColor; }
+
+    /* ── UPDATED PHONE MOCK (gradient AppBar + new bill cards) ── */
+    .mock-appbar-gradient {
+      background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+      padding: 12px 12px 10px;
+      position: relative; overflow: hidden;
+    }
+    .mock-appbar-gradient::before {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 70px; height: 70px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .mock-appbar-row {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .mock-appbar-text {
+      color: #fff; font-size: .72rem; font-weight: 700; flex: 1;
+    }
+    .mock-appbar-sub {
+      font-size: .58rem; color: rgba(255,255,255,.65);
+    }
+    .mock-summary-float {
+      margin: 0 8px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 6px 20px rgba(29,78,216,0.18);
+      position: relative; z-index: 2;
+    }
+    .mock-summary-row { display: flex; gap: 6px; }
+    .mock-summary-tile {
+      flex: 1; border-radius: 8px; padding: 7px 8px;
+    }
+    .mock-summary-tile.unpaid { background: linear-gradient(135deg, #FEF3C7, #FDE68A); }
+    .mock-summary-tile.paid   { background: linear-gradient(135deg, #DCFCE7, #BBF7D0); }
+    .mock-summary-label  { font-size: .52rem; color: #64748B; font-weight: 600; }
+    .mock-summary-amount { font-size: .72rem; font-weight: 800; color: #1E293B; margin-top: 1px; }
+    .mock-section-hdr {
+      display: flex; align-items: center; gap: 4px;
+      padding: 6px 8px 2px;
+    }
+    .mock-s-bar { width: 3px; height: 11px; border-radius: 2px; }
+    .mock-s-bar.ov { background: #EF4444; }
+    .mock-s-bar.un { background: #F59E0B; }
+    .mock-s-bar.pa { background: #10B981; }
+    .mock-s-title  { font-size: .56rem; font-weight: 700; text-transform: uppercase; letter-spacing: .3px; }
+    .mock-s-title.ov { color: #EF4444; }
+    .mock-s-title.un { color: #F59E0B; }
+    .mock-s-title.pa { color: #10B981; }
+    .mock-bill-new {
+      margin: 2px 8px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 7px 10px 7px 13px;
+      display: flex; align-items: center; gap: 8px;
+      position: relative; overflow: hidden;
+    }
+    .mock-bill-new::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0; width: 3px;
+      border-radius: 10px 0 0 10px;
+    }
+    .mock-bill-new.ov { box-shadow: 0 2px 10px rgba(239,68,68,0.18); }
+    .mock-bill-new.ov::before { background: #EF4444; }
+    .mock-bill-new.un { box-shadow: 0 2px 10px rgba(245,158,11,0.13); }
+    .mock-bill-new.un::before { background: #F59E0B; }
+    .mock-bill-new.pa { box-shadow: 0 2px 8px rgba(16,185,129,0.10); }
+    .mock-bill-new.pa::before { background: #10B981; }
+    .mock-cat-new {
+      width: 26px; height: 26px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; flex-shrink: 0;
+    }
+    .mci-housing { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); }
+    .mci-phone   { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+    .mci-subscr  { background: linear-gradient(135deg, #FEE2E2, #FECACA); }
+    .mci-inet    { background: linear-gradient(135deg, #DCFCE7, #BBF7D0); }
+    .mock-bn { font-size: .63rem; font-weight: 600; color: #1E293B; }
+    .mock-bd { font-size: .55rem; color: #94A3B8; }
+    .mock-bd.ov { color: #EF4444; font-weight: 600; }
+    .mock-bd.so { color: #F59E0B; font-weight: 600; }
+    .mock-ba { font-size: .63rem; font-weight: 700; }
+    .mock-ba.ov { color: #EF4444; }
+    .mock-ba.pa { color: #10B981; }
+    .mock-ad-strip {
+      background: #F1F5F9;
+      border-top: 1px dashed #CBD5E1;
+      padding: 3px 8px;
+      text-align: center;
+      font-size: .52rem; color: #94A3B8;
+    }
+    .mock-navbar-new {
+      background: #fff;
+      border-top: 1px solid #F1F5F9;
+      display: flex; justify-content: space-around;
+      padding: 5px 0 7px;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.05);
+      border-radius: 0 0 6px 6px;
+    }
+    .mock-nav-new {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 2px;
+      font-size: .44rem; color: #94A3B8;
+    }
+    .mock-nav-new.active { color: #1D4ED8; }
+    .mock-nav-pill {
+      width: 32px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; border-radius: 10px;
+    }
+    .mock-nav-new.active .mock-nav-pill { background: #EFF6FF; }
 
     /* ── STATS BAR ───────────────────────────────────────────── */
     .stats-bar {
@@ -353,6 +468,51 @@
     }
     .footer-links a:hover { color: #fff; }
 
+    /* ── HELP / SAMOUCZEK ───────────────────────────────────── */
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .help-card {
+      display: flex; align-items: flex-start; gap: 18px;
+      background: var(--white);
+      border: 1px solid #E2E8F0;
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .help-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .help-card-icon {
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      background: var(--blue-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .help-card-body h3 {
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 6px; color: var(--dark);
+    }
+    .help-card-body p {
+      font-size: .88rem; color: var(--gray); line-height: 1.6;
+    }
+    .help-tip {
+      background: #EFF6FF;
+      border-left: 4px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-top: 40px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .help-tip-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .help-tip p { font-size: .9rem; color: #1D4ED8; margin: 0; }
+    .help-tip strong { color: #1E40AF; }
+
     /* ── RESPONSIVE ──────────────────────────────────────────── */
     @media (max-width: 768px) {
       .hero { flex-direction: column; padding: 56px 5% 48px; text-align: center; }
@@ -375,13 +535,14 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
-    <span>📋</span>
-    MojeRachunki Lite
+    <span>R</span>
+    Twoje Rachunki
   </a>
   <ul class="nav-links">
     <li><a href="#funkcje">Funkcje</a></li>
     <li><a href="#prywatnosc">Prywatność</a></li>
     <li><a href="#jak-dziala">Jak działa</a></li>
+    <li><a href="#pomoc">Pomoc</a></li>
   </ul>
   <a class="nav-cta" href="#pobierz">Pobierz za darmo</a>
 </nav>
@@ -389,7 +550,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="hero-badge">Bezpłatna aplikacja na Android</div>
+    <div class="hero-badge">Bezpłatna · 5 języków · Bez chmury</div>
     <h1>Rachunki pod<br/><em>pełną kontrolą.</em><br/>Bez chmury.</h1>
     <p>Dodaj rachunki raz, a aplikacja przypomni Ci o płatności. Historia, statystyki i skaner QR — wszystko działa offline, bez rejestracji.</p>
     <div class="hero-buttons">
@@ -404,62 +565,105 @@
   <div class="hero-visual">
     <div class="phone-mock">
       <div class="phone-notch"></div>
-      <div class="phone-screen">
-        <div class="mock-appbar">Marzec 2026</div>
-        <div class="mock-card">
-          <div class="mock-card-row">
-            <span class="label">Zobowiązania</span>
-            <span class="label">Opłacono</span>
-          </div>
-          <div class="mock-card-row">
-            <span class="val-red">340,00 zł</span>
-            <span class="val-green">520,00 zł</span>
+      <div class="phone-screen" style="padding: 36px 0 0; gap: 0;">
+
+        <!-- Gradient AppBar -->
+        <div class="mock-appbar-gradient">
+          <div class="mock-appbar-row">
+            <span style="font-size:13px">💳</span>
+            <span class="mock-appbar-text">Twoje Rachunki</span>
+            <span class="mock-appbar-sub">Mar 2026</span>
           </div>
         </div>
-        <div class="mock-card" style="flex:1">
-          <div class="mock-row">
-            <div class="mock-icon" style="background:#FEF3C7">⚡</div>
-            <div class="mock-row-text">
-              <div class="mock-row-name">Prąd — PGE</div>
-              <div class="mock-row-date">Do 15 mar</div>
+
+        <!-- Floating Summary Card -->
+        <div class="mock-summary-float" style="margin-top:8px">
+          <div class="mock-summary-row">
+            <div class="mock-summary-tile unpaid">
+              <div class="mock-summary-label">Do zapłaty</div>
+              <div class="mock-summary-amount">340 zł</div>
             </div>
-            <div class="mock-row-amount" style="color:#EF4444">180 zł</div>
-          </div>
-          <div class="mock-row">
-            <div class="mock-icon" style="background:#DCFCE7">💧</div>
-            <div class="mock-row-text">
-              <div class="mock-row-name">Woda — MPWiK</div>
-              <div class="mock-row-date">Do 20 mar</div>
+            <div class="mock-summary-tile paid">
+              <div class="mock-summary-label">Zapłacone</div>
+              <div class="mock-summary-amount">520 zł</div>
             </div>
-            <div class="mock-row-amount" style="color:#EF4444">85 zł</div>
-          </div>
-          <div class="mock-row" style="border:none">
-            <div class="mock-icon" style="background:#EDE9FE">📺</div>
-            <div class="mock-row-text">
-              <div class="mock-row-name">Netflix</div>
-              <div class="mock-row-date">Zapłacono 2 mar ✓</div>
-            </div>
-            <div class="mock-row-amount" style="color:#22C55E">43 zł</div>
           </div>
         </div>
-        <div class="mock-navbar">
-          <div class="mock-nav-item active">
-            <div class="mock-nav-dot"></div>
+
+        <!-- Section: Zaległe -->
+        <div class="mock-section-hdr">
+          <div class="mock-s-bar ov"></div>
+          <span class="mock-s-title ov">Zaległe</span>
+        </div>
+        <div class="mock-bill-new ov">
+          <div class="mock-cat-new mci-housing">🏠</div>
+          <div style="flex:1">
+            <div class="mock-bn">Czynsz</div>
+            <div class="mock-bd ov">Zaległe o 5 dni</div>
+          </div>
+          <div class="mock-ba ov">850 zł</div>
+        </div>
+
+        <!-- Section: Do zapłaty -->
+        <div class="mock-section-hdr">
+          <div class="mock-s-bar un"></div>
+          <span class="mock-s-title un">Do zapłaty</span>
+        </div>
+        <div class="mock-bill-new un">
+          <div class="mock-cat-new mci-phone">📱</div>
+          <div style="flex:1">
+            <div class="mock-bn">Telefon</div>
+            <div class="mock-bd so">Za 3 dni</div>
+          </div>
+          <div class="mock-ba">79 zł</div>
+        </div>
+        <div class="mock-bill-new un" style="margin-top:2px">
+          <div class="mock-cat-new mci-inet">🌐</div>
+          <div style="flex:1">
+            <div class="mock-bn">Internet</div>
+            <div class="mock-bd">Za 10 dni</div>
+          </div>
+          <div class="mock-ba">59 zł</div>
+        </div>
+
+        <!-- Section: Zapłacone -->
+        <div class="mock-section-hdr">
+          <div class="mock-s-bar pa"></div>
+          <span class="mock-s-title pa">Zapłacone</span>
+        </div>
+        <div class="mock-bill-new pa">
+          <div class="mock-cat-new mci-subscr">🎬</div>
+          <div style="flex:1">
+            <div class="mock-bn">Netflix</div>
+            <div class="mock-bd">1 marca</div>
+          </div>
+          <div class="mock-ba pa">43 zł</div>
+        </div>
+
+        <div style="flex:1"></div>
+        <!-- Ad strip -->
+        <div class="mock-ad-strip">📢 Reklama AdMob</div>
+
+        <!-- Bottom nav -->
+        <div class="mock-navbar-new">
+          <div class="mock-nav-new active">
+            <div class="mock-nav-pill">🏠</div>
             <span>Miesiąc</span>
           </div>
-          <div class="mock-nav-item">
-            <div class="mock-nav-dot"></div>
+          <div class="mock-nav-new">
+            <div class="mock-nav-pill">📋</div>
             <span>Rachunki</span>
           </div>
-          <div class="mock-nav-item">
-            <div class="mock-nav-dot"></div>
-            <span>Historia</span>
+          <div class="mock-nav-new">
+            <div class="mock-nav-pill">📊</div>
+            <span>Stat.</span>
           </div>
-          <div class="mock-nav-item">
-            <div class="mock-nav-dot"></div>
-            <span>Statystyki</span>
+          <div class="mock-nav-new">
+            <div class="mock-nav-pill">⚙️</div>
+            <span>Ustawienia</span>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -483,13 +687,17 @@
     <div class="stat-number"><span>∞</span></div>
     <div class="stat-label">Rachunków bez limitu</div>
   </div>
+  <div class="stat">
+    <div class="stat-number"><span>5</span></div>
+    <div class="stat-label">Języków — auto-detekcja</div>
+  </div>
 </div>
 
 <!-- FEATURES -->
 <section id="funkcje">
   <div class="section-label">Funkcje</div>
   <h2>Wszystko czego potrzebujesz.<br/>Nic czego nie chcesz.</h2>
-  <p class="section-sub">Żadnych subskrypcji, kont, zgód marketingowych. Instalujesz i używasz.</p>
+  <p class="section-sub">Żadnych subskrypcji, kont ani rejestracji. Instalujesz i używasz.</p>
 
   <div class="features-grid">
     <div class="feature-card">
@@ -522,6 +730,11 @@
       <h3>Eksport do PDF</h3>
       <p>Wygeneruj raport miesięczny w formacie PDF i wyślij go mailem lub zachowaj na telefonie.</p>
     </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#F0FFF4">🌍</div>
+      <h3>5 języków — bez konfiguracji</h3>
+      <p>Polski, angielski, niemiecki, czeski, hiszpański. Aplikacja automatycznie dostosowuje się do języka Twojego telefonu.</p>
+    </div>
   </div>
 </section>
 
@@ -530,7 +743,7 @@
   <div class="offline-text">
     <div class="section-label">Prywatność</div>
     <h2>Twoje dane zostają<br/>na Twoim telefonie.</h2>
-    <p>W czasach gdy każda aplikacja chce konta i dostępu do danych — MojeRachunki Lite działa inaczej. Żadnych serwerów, żadnej chmury.</p>
+    <p>W czasach gdy każda aplikacja chce konta i dostępu do danych — Twoje Rachunki działa inaczej. Żadnych serwerów, żadnej chmury.</p>
     <div class="offline-points">
       <div class="offline-point">
         <div class="offline-point-icon">🔒</div>
@@ -601,10 +814,74 @@
   </div>
 </section>
 
+<!-- POMOC I SAMOUCZEK -->
+<section id="pomoc">
+  <div class="section-label">Pomoc i samouczek</div>
+  <h2>Jak korzystać<br/>z aplikacji?</h2>
+  <p class="section-sub">Wszystko co musisz wiedzieć, żeby zacząć. Żadnych tutoriali — aplikacja jest prosta z założenia.</p>
+
+  <div class="help-grid">
+
+    <div class="help-card">
+      <div class="help-card-icon">🧾</div>
+      <div class="help-card-body">
+        <h3>Zarządzanie rachunkami</h3>
+        <p>Dodawaj rachunki ręcznie lub skanuj kody QR z faktur. Możesz oznaczać je jako zapłacone, edytować lub archiwizować. Każdy rachunek może mieć ustawioną cykliczność — miesięczną, kwartalną lub roczną.</p>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-card-icon">📷</div>
+      <div class="help-card-body">
+        <h3>Skaner kodów QR i kreskowych</h3>
+        <p>Aplikacja rozpoznaje format ZBP z polskich faktur oraz standardowe kody kreskowe mediów (prąd, gaz). Skanowanie automatycznie uzupełnia nazwę, kwotę i dane płatności — bez ręcznego wpisywania.</p>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-card-icon">📈</div>
+      <div class="help-card-body">
+        <h3>Trendy i statystyki</h3>
+        <p>W szczegółach rachunku znajdziesz wykres trendu płatności i badge z procentową zmianą (np. +7% ↑). Zakładka Statystyki pokazuje wydatki miesięczne, podział na kategorie oraz porównanie z poprzednim miesiącem.</p>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-card-icon">🔔</div>
+      <div class="help-card-body">
+        <h3>Powiadomienia</h3>
+        <p>Aplikacja przypomina o nadchodzących płatnościach 3 dni przed terminem. W ustawieniach możesz włączyć dodatkowe przypomnienie w samym dniu płatności o godzinie 9:00. Powiadomienia działają bez internetu.</p>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-card-icon">💾</div>
+      <div class="help-card-body">
+        <h3>Kopia zapasowa</h3>
+        <p>Twoje dane są przechowywane wyłącznie lokalnie. W Ustawieniach → Kopia zapasowa możesz wyeksportować plik bazy danych (.db) i udostępnić go przez e-mail lub Drive. Przywracanie: wskaż plik i zatwierdź.</p>
+      </div>
+    </div>
+
+    <div class="help-card">
+      <div class="help-card-icon">🔒</div>
+      <div class="help-card-body">
+        <h3>Prywatność i tryb offline</h3>
+        <p>Twoje Rachunki nie wymaga konta ani połączenia z internetem (poza wyświetlaniem reklam). Twoje dane finansowe nigdy nie opuszczają urządzenia — brak serwerów, brak telemetrii, brak rejestracji.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="help-tip">
+    <div class="help-tip-icon">💡</div>
+    <p><strong>Wskazówka:</strong> Przy pierwszym otwarciu skanera QR aplikacja wyświetli jednorazowy tip z informacją o obsługiwanych formatach kodów. Znajdziesz je na większości polskich faktur za media i usługi.</p>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="pobierz">
   <h2>Zacznij kontrolować<br/>swoje rachunki już dziś.</h2>
-  <p>Bezpłatna aplikacja na Androida. Działa od razu po instalacji.</p>
+  <p>Bezpłatna aplikacja na Androida. Działa od razu po instalacji.<br/><small style="opacity:.75">Zawiera okazjonalne reklamy — do usunięcia jednorazowym zakupem.</small></p>
   <!-- Zastąp href linkiem do Google Play po publikacji -->
   <a class="btn-white" href="#pobierz">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -617,11 +894,12 @@
 <!-- FOOTER -->
 <footer>
   <a class="footer-logo" href="#">
-    <span>📋</span>
-    MojeRachunki Lite
+    <span>💳</span>
+    Twoje Rachunki
   </a>
-  <p>© 2026 MojeRachunki Lite. Wszelkie prawa zastrzeżone.</p>
+  <p>© 2026 Twoje Rachunki. Wszelkie prawa zastrzeżone.</p>
   <div class="footer-links">
+    <a href="#pomoc">Pomoc</a>
     <a href="privacy.html">Polityka prywatności</a>
     <a href="mailto:twoj-email@example.com">Kontakt</a>
   </div>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postomat — Generator postów AI dla małych firm</title>
+  <meta name="description" content="Twórz profesjonalne posty na Instagram, Facebook i Google w kilka sekund. AI dopasowane do Twojej branży. Bezpłatnie — 10 generacji dziennie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #24B617; --green-dark: #1A8F10; --green-light: #3DD630; --green-pale: #F0FCEE;
+      --green-surface: #E8F7E5; --green-border: #B0E4AC; --dark: #0D1F0B; --gray: #5A6E58;
+      --light: #F7FDF6; --white: #FFFFFF; --radius: 16px; --shadow: 0 4px 24px rgba(36,182,23,.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; color: var(--dark); background: var(--white); line-height: 1.65; }
+    h1, h2, h3, h4 { font-family: 'Sora', system-ui, sans-serif; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 68px; background: rgba(255,255,255,.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--green-border); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 38px; height: 38px; border-radius: 11px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .nav-logo-icon svg { width: 38px; height: 38px; }
+    .nav-logo-text { font-size: 1.15rem; font-weight: 700; color: var(--dark); }
+    .nav-logo-text span { color: var(--green); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--gray); font-size: .92rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta { background: var(--green); color: #fff; padding: 9px 22px; border-radius: 10px; font-weight: 600; font-size: .9rem; text-decoration: none; box-shadow: 0 3px 12px rgba(36,182,23,.35); }
+
+    /* HERO */
+    .hero { display: flex; align-items: center; justify-content: space-between; gap: 48px; padding: 88px 5% 80px; background: linear-gradient(145deg, #F0FCEE 0%, #E8F7E5 40%, #D4F2D0 100%); overflow: hidden; position: relative; }
+    .hero::before { content: ''; position: absolute; top: -120px; right: -120px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(36,182,23,.12) 0%, transparent 70%); }
+    .hero-text { flex: 1; max-width: 560px; position: relative; z-index: 1; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.1; margin-bottom: 22px; }
+    .hero h1 em { color: var(--green); font-style: normal; }
+    .hero p { font-size: 1.1rem; color: var(--gray); margin-bottom: 40px; line-height: 1.7; }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 9px; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; padding: 15px 30px; border-radius: 13px; font-weight: 700; font-size: 1rem; text-decoration: none; box-shadow: 0 5px 20px rgba(36,182,23,.40); }
+    .btn-primary:hover { transform: translateY(-2px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 9px; background: #fff; color: var(--green-dark); padding: 15px 30px; border-radius: 13px; font-weight: 600; font-size: 1rem; text-decoration: none; border: 2px solid var(--green-border); }
+
+    /* PHONE SHELL */
+    .hero-visual { flex: 0 0 auto; display: flex; justify-content: center; align-items: center; position: relative; z-index: 1; }
+    .phone-shell { width: 256px; height: 520px; background: #111; border-radius: 42px; border: 6px solid #1C3519; box-shadow: 0 40px 80px rgba(13,31,11,.40); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    .phone-notch { width: 88px; height: 24px; background: #111; border-radius: 0 0 14px 14px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; }
+    .phone-screen { flex: 1; background: #F0FCEE; display: flex; flex-direction: column; overflow: hidden; padding-top: 22px; }
+
+    /* APP HEADER (gradient zaokrąglony dół) */
+    .app-header { background: linear-gradient(135deg, #1A8F10 0%, #24B617 55%, #3DD630 100%); border-radius: 0 0 20px 20px; padding: 10px 12px 14px; flex-shrink: 0; }
+    .app-header-row1 { display: flex; align-items: center; gap: 7px; }
+    .app-icon-box { width: 24px; height: 24px; border-radius: 7px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .app-icon-box svg { width: 24px; height: 24px; }
+    .app-title { color: #fff; font-size: .72rem; font-weight: 700; flex: 1; }
+    .app-sub { color: rgba(255,255,255,.65); font-size: .54rem; }
+    .app-header-icons { display: flex; gap: 3px; }
+    .app-avatar { width: 22px; height: 22px; border-radius: 50%; background: rgba(255,255,255,.25); display: flex; align-items: center; justify-content: center; font-size: .58rem; color: #fff; font-weight: 700; }
+
+    /* COUNTER BAR */
+    .counter-bar { margin-top: 8px; background: rgba(0,0,0,.18); border-radius: 10px; border: 1px solid rgba(255,255,255,.25); padding: 7px 10px; display: flex; align-items: center; gap: 8px; }
+    .counter-left { flex: 1; }
+    .counter-label { color: #fff; font-size: .58rem; font-weight: 600; margin-bottom: 4px; }
+    .counter-progress { height: 3px; border-radius: 2px; background: rgba(255,255,255,.3); }
+    .counter-fill { height: 100%; background: #fff; }
+    .counter-val { color: #fff; font-size: .68rem; font-weight: 800; }
+
+    /* APP SCROLL AREA */
+    .app-scroll { flex: 1; padding: 10px 10px 0; overflow: hidden; display: flex; flex-direction: column; gap: 9px; }
+    .section-lbl { font-size: .5rem; font-weight: 700; color: #24B617; letter-spacing: .8px; text-transform: uppercase; }
+
+    /* CONTENT TYPE CHIPS */
+    .type-chips { display: flex; gap: 5px; flex-wrap: nowrap; overflow: hidden; }
+    .type-chip { display: flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 10px; font-size: .5rem; font-weight: 600; border: 1.5px solid #E5E7EB; background: #fff; color: #374151; white-space: nowrap; }
+    .type-chip.sel { border-width: 2px; }
+    .type-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+    /* PLATFORM SELECTOR */
+    .platform-row { display: flex; gap: 5px; }
+    .plat-card { flex: 1; padding: 7px 0; background: #fff; border-radius: 10px; border: 1.5px solid #E5E7EB; display: flex; align-items: center; justify-content: center; font-size: .9rem; }
+    .plat-card.sel { border-width: 2px; }
+
+    /* TOPIC CARD */
+    .topic-card { background: #fff; border-radius: 12px; padding: 9px 10px; }
+    .topic-field { display: flex; align-items: flex-start; gap: 6px; background: #F9FAFB; border: 1.5px solid var(--green-border); border-radius: 9px; padding: 6px 8px; margin: 5px 0 7px; }
+    .topic-icon { color: #24B617; font-size: .8rem; margin-top: 1px; }
+    .topic-text { font-size: .6rem; color: #111; font-weight: 500; }
+    .sugg-row { display: flex; gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+    .sugg-chip { padding: 3px 8px; border-radius: 14px; font-size: .48rem; font-weight: 500; background: #E8F7E5; border: 1px solid #B0E4AC; color: #24B617; white-space: nowrap; }
+
+    /* GENERATE BUTTON */
+    .gen-btn { height: 46px; border-radius: 13px; background: linear-gradient(135deg, #1A8F10, #24B617, #3DD630); display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 14px rgba(36,182,23,.4); margin: 0 0 10px; }
+    .gen-btn span { font-size: .7rem; font-weight: 700; color: #fff; }
+
+    /* STATS BAR */
+    .stats-bar { display: flex; justify-content: center; background: #0D1F0B; padding: 36px 5%; }
+    .stat { flex: 1; max-width: 240px; text-align: center; padding: 0 28px; border-right: 1px solid #2D4A2A; }
+    .stat:last-child { border-right: none; }
+    .stat-number { font-size: 2.2rem; font-weight: 800; color: #fff; }
+    .stat-number span { color: var(--green-light); }
+    .stat-label { font-size: .85rem; color: #6B9E68; margin-top: 6px; }
+
+    /* SECTIONS */
+    section { padding: 80px 5%; }
+    .section-label { display: inline-block; background: var(--green-surface); color: var(--green-dark); border: 1px solid var(--green-border); padding: 4px 14px; border-radius: 99px; font-size: .78rem; font-weight: 600; margin-bottom: 14px; }
+    h2 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
+    .section-sub { font-size: 1.05rem; color: var(--gray); max-width: 560px; margin-bottom: 56px; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .feature-card { background: var(--light); border-radius: var(--radius); padding: 28px; border: 1px solid var(--green-border); transition: transform .2s; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .feature-icon { width: 52px; height: 52px; background: var(--green-surface); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 18px; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 9px; }
+    .feature-card p { font-size: .9rem; color: var(--gray); }
+
+    /* PLATFORMS SECTION */
+    .platforms-section { background: #0D1F0B; border-radius: 24px; margin: 0 5% 80px; padding: 64px; display: flex; align-items: center; gap: 60px; }
+    .platforms-text { flex: 1; }
+    .platforms-text h2 { color: #fff; }
+    .platforms-text p { color: #6B9E68; margin-bottom: 32px; }
+    .platform-badges { display: flex; flex-direction: column; gap: 12px; }
+    .platform-badge { display: flex; align-items: center; gap: 14px; background: #1C3519; border-radius: 12px; padding: 14px 18px; border: 1px solid #2D5228; }
+    .platform-badge-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .platform-badge-text strong { display: block; color: #fff; font-size: .9rem; }
+    .platform-badge-text span { color: #6B9E68; font-size: .82rem; }
+
+    /* CONTENT TYPES GRID */
+    .content-types { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ct-tile { background: #1C3519; border-radius: 13px; padding: 16px 18px; border: 1px solid #2D5228; text-align: center; }
+    .ct-tile .icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .ct-tile .name { font-size: .78rem; font-weight: 600; color: #fff; }
+
+    /* HOW IT WORKS */
+    .how-section { background: var(--green-pale); }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .step-card { text-align: center; padding: 32px 22px 28px; background: #fff; border-radius: var(--radius); border: 1px solid var(--green-border); transition: transform .2s; }
+    .step-card:hover { transform: translateY(-4px); }
+    .step-number { width: 48px; height: 48px; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #fff; border-radius: 50%; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+    .step-icon { font-size: 2rem; margin-bottom: 10px; }
+    .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 9px; }
+    .step-card p { font-size: .87rem; color: var(--gray); }
+
+    /* TUTORIAL */
+    .tutorial-detail { margin-top: 72px; display: flex; flex-direction: column; gap: 56px; }
+    .tutorial-row { display: flex; align-items: center; gap: 56px; }
+    .tutorial-row.reverse { flex-direction: row-reverse; }
+    .tutorial-text { flex: 1; }
+    .tutorial-text h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; }
+    .tutorial-text p { color: var(--gray); font-size: .97rem; }
+    .tutorial-checklist { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .tutorial-checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--gray); list-style: none; }
+    .tutorial-checklist li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* TUTORIAL PHONES */
+    .tut-screen-wrap { flex: 0 0 auto; width: 270px; }
+    .tut-phone-shell { width: 270px; height: 540px; background: #111; border-radius: 40px; border: 5px solid #1C3519; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    .tut-phone-notch { width: 80px; height: 22px; background: #111; border-radius: 0 0 12px 12px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; }
+    .tut-phone-screen { flex: 1; background: #F0FCEE; display: flex; flex-direction: column; overflow: hidden; padding-top: 20px; }
+
+    /* RESULT SCREEN */
+    .result-appbar { background: linear-gradient(135deg, #1A8F10 0%, #24B617 55%, #3DD630 100%); padding: 10px 12px 10px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .result-title { color: #fff; font-size: .72rem; font-weight: 700; flex: 1; }
+    .result-body { flex: 1; padding: 10px 10px 0; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
+    .platform-badge-sm { display: inline-flex; align-items: center; gap: 5px; background: #fff; border-radius: 9px; padding: 4px 9px; width: fit-content; }
+    .plat-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .plat-name { font-size: .58rem; font-weight: 700; color: #374151; }
+    .result-card { background: #fff; border-radius: 11px; padding: 10px 11px; flex: 1; overflow: hidden; }
+    .result-text { font-size: .6rem; color: #1A1A2E; line-height: 1.6; }
+    .result-hashtags { font-size: .58rem; color: var(--green-dark); font-weight: 500; margin-top: 6px; }
+    .result-actions { padding: 8px 10px; background: #fff; border-top: 1px solid var(--green-border); flex-shrink: 0; }
+    .result-btn-row { display: flex; gap: 6px; margin-bottom: 5px; }
+    .r-btn-primary { flex: 1; height: 34px; border-radius: 10px; background: linear-gradient(135deg, #1A8F10, #24B617); display: flex; align-items: center; justify-content: center; font-size: .58rem; font-weight: 700; color: #fff; }
+    .r-btn-outline { flex: 1; height: 34px; border-radius: 10px; border: 1.5px solid var(--green-border); background: #fff; display: flex; align-items: center; justify-content: center; font-size: .58rem; color: var(--green-dark); }
+
+    /* HISTORY SCREEN */
+    .hist-appbar { background: linear-gradient(135deg, #1A8F10 0%, #24B617 55%, #3DD630 100%); border-radius: 0 0 18px 18px; padding: 10px 12px 14px; flex-shrink: 0; }
+    .hist-title { color: #fff; font-size: .75rem; font-weight: 700; }
+    .hist-stats-bar { background: rgba(0,0,0,.18); border-radius: 10px; border: 1px solid rgba(255,255,255,.25); padding: 8px 10px; display: flex; align-items: center; justify-content: space-around; margin-top: 8px; }
+    .hist-stat { text-align: center; flex: 1; }
+    .hist-stat-val { color: #fff; font-size: .72rem; font-weight: 800; }
+    .hist-stat-lbl { color: rgba(255,255,255,.65); font-size: .5rem; }
+    .hist-body { flex: 1; padding: 8px 8px 0; display: flex; flex-direction: column; gap: 7px; overflow: hidden; }
+
+    /* POST CARD */
+    .post-card { background: #fff; border-radius: 12px; border: 1px solid var(--green-border); overflow: hidden; }
+    .post-card-header { padding: 8px 10px 6px; display: flex; align-items: center; gap: 6px; }
+    .pc-platform-badge { display: flex; align-items: center; gap: 4px; background: var(--green-surface); border: 1px solid var(--green-border); border-radius: 8px; padding: 2px 7px; }
+    .pc-plat-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .pc-plat-label { font-size: .5rem; font-weight: 700; color: var(--green-dark); }
+    .pc-type-badge { padding: 2px 7px; border-radius: 8px; font-size: .5rem; font-weight: 600; background: var(--green-surface); color: var(--green-dark); }
+    .pc-star { margin-left: auto; font-size: .85rem; }
+    .post-card-text { padding: 0 10px 6px; font-size: .58rem; color: #374151; }
+    .post-card-footer { padding: 5px 10px 7px; display: flex; align-items: center; gap: 6px; border-top: 1px solid var(--green-border); }
+    .pc-topic { font-size: .5rem; color: var(--gray); }
+    .pc-date { font-size: .5rem; color: #9CA3AF; }
+
+    /* BRANCH SELECTOR */
+    .branch-screen { flex: 1; padding: 14px 10px; display: flex; flex-direction: column; gap: 10px; }
+    .branch-title { font-size: .72rem; font-weight: 700; color: #111; text-align: center; }
+    .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .branch-tile { border-radius: 12px; padding: 12px 8px; text-align: center; border: 1.5px solid #E5E7EB; background: #fff; }
+    .branch-tile.sel { border-color: var(--green); border-width: 2px; background: var(--green-pale); }
+    .branch-tile .b-icon { font-size: 1.3rem; }
+    .branch-tile .b-name { font-size: .6rem; font-weight: 700; color: #111; }
+    .branch-cta { height: 40px; border-radius: 12px; background: linear-gradient(135deg, #1A8F10, #24B617); display: flex; align-items: center; justify-content: center; font-size: .68rem; font-weight: 700; color: #fff; margin-top: 4px; }
+
+    /* PRICING */
+    .pricing-section { background: var(--white); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 760px; }
+    .pricing-card { border-radius: 20px; padding: 36px; border: 2px solid var(--green-border); background: var(--light); position: relative; }
+    .pricing-card.featured { background: linear-gradient(145deg, var(--green), var(--green-dark)); border-color: transparent; }
+    .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #FFD700; color: #7A5F00; padding: 4px 16px; border-radius: 99px; font-size: .78rem; font-weight: 700; }
+    .pricing-name { font-size: .85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+    .pricing-card.featured .pricing-name { color: rgba(255,255,255,.75); }
+    .pricing-price { font-size: 2.6rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .pricing-card.featured .pricing-price { color: #fff; }
+    .pricing-price-sub { font-size: .85rem; color: var(--gray); margin-bottom: 28px; }
+    .pricing-card.featured .pricing-price-sub { color: rgba(255,255,255,.65); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pricing-features li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--gray); }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,.85); }
+    .pricing-features li::before { content: '✓'; width: 20px; height: 20px; background: var(--green-surface); color: var(--green-dark); border-radius: 50%; font-size: .72rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pricing-card.featured .pricing-features li::before { background: rgba(255,255,255,.2); color: #fff; }
+    .pricing-features li.no::before { content: '✗'; background: #FEE2E2; color: #DC2626; }
+    .pricing-cta { display: block; text-align: center; margin-top: 28px; padding: 13px; border-radius: 11px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .15s; }
+    .pricing-card:not(.featured) .pricing-cta { background: var(--green); color: #fff; }
+    .pricing-card.featured .pricing-cta { background: #fff; color: var(--green-dark); }
+
+    /* CTA */
+    .cta-section { background: linear-gradient(145deg, #1A8F10, #136B0C); text-align: center; padding: 96px 5%; }
+    .cta-section h2 { color: #fff; margin-bottom: 14px; }
+    .cta-section p { color: rgba(255,255,255,.65); margin-bottom: 40px; font-size: 1.1rem; }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--green-dark); padding: 16px 32px; border-radius: 13px; font-weight: 700; font-size: 1rem; text-decoration: none; }
+
+    /* FAQ */
+    .faq-section { background: var(--green-pale); }
+    .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .faq-item { background: #fff; border-radius: 14px; border: 1px solid var(--green-border); padding: 22px 24px; }
+    .faq-q { font-size: .97rem; font-weight: 700; margin-bottom: 8px; }
+    .faq-a { font-size: .9rem; color: var(--gray); }
+
+    /* FOOTER */
+    footer { background: #0D1F0B; padding: 48px 5% 32px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .footer-brand p { color: #6B9E68; font-size: .88rem; margin-top: 8px; }
+    .footer-brand .nav-logo-text { color: #fff; }
+    .footer-links h4 { font-size: .82rem; color: #6B9E68; text-transform: uppercase; margin-bottom: 14px; }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { text-decoration: none; color: #93C5A0; font-size: .9rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; padding: 60px 5%; text-align: center; }
+      .platforms-section { flex-direction: column; }
+      .tutorial-row, .tutorial-row.reverse { flex-direction: column; }
+      nav .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-bar { flex-direction: column; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><div class="nav-logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="nb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a8f10"/><stop offset="100%" style="stop-color:#24B617"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#nb)"/><text x="108" y="360" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="310" fill="white" letter-spacing="-10">P</text><rect x="318" y="320" width="130" height="96" rx="22" fill="white"/><text x="383" y="389" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="62" fill="#1a8f10" text-anchor="middle" letter-spacing="-2">AI</text></svg></div><span class="nav-logo-text">Posto<span>mat</span></span></a>
+  <ul class="nav-links">
+    <li><a href="#funkcje">Funkcje</a></li>
+    <li><a href="#samouczek">Samouczek</a></li>
+    <li><a href="#cennik">Cennik</a></li>
+  </ul>
+  <a href="#pobierz" class="nav-cta">Pobierz za darmo</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Posty na social media<br />w <em>10 sekund</em> — z AI</h1>
+    <p>Wpisz temat, wybierz platformę — Postomat wygeneruje gotowy post po polsku, dopasowany do Twojej branży.</p>
+    <div class="hero-buttons">
+      <a href="#pobierz" class="btn-primary">▶ Pobierz na Android</a>
+      <a href="#samouczek" class="btn-secondary">📖 Jak to działa?</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="phone-shell">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="app-header">
+          <div class="app-header-row1">
+            <div class="app-icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="ab" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a8f10"/><stop offset="100%" style="stop-color:#24B617"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#ab)"/><text x="108" y="360" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="310" fill="white" letter-spacing="-10">P</text><rect x="318" y="320" width="130" height="96" rx="22" fill="white"/><text x="383" y="389" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="62" fill="#1a8f10" text-anchor="middle" letter-spacing="-2">AI</text></svg></div>
+            <div><div class="app-title">Postomat</div><div class="app-sub">salon fryzjerski</div></div>
+            <div class="app-header-icons"><div class="app-avatar">M</div></div>
+          </div>
+          <div class="counter-bar">
+            <div class="counter-left">
+              <div class="counter-label">Darmowe generacje dzisiaj</div>
+              <div class="counter-progress"><div class="counter-fill" style="width:70%"></div></div>
+            </div>
+            <div class="counter-val">7 / 10</div>
+          </div>
+        </div>
+        <div class="app-scroll">
+          <div class="section-lbl">Typ treści</div>
+          <div class="type-chips">
+            <div class="type-chip sel" style="border-color:#E53935;color:#E53935"><div class="type-dot" style="background:#E53935"></div>Promocja</div>
+            <div class="type-chip"><div class="type-dot" style="background:#FB8C00"></div>Porada</div>
+          </div>
+          <div class="section-lbl">Platforma</div>
+          <div class="platform-row">
+            <div class="plat-card sel"><i class="fab fa-facebook-f"></i></div>
+            <div class="plat-card"><i class="fab fa-instagram"></i></div>
+            <div class="plat-card"><i class="fab fa-google"></i></div>
+            <div class="plat-card"><i class="fab fa-tiktok"></i></div>
+            <div class="plat-card"><i class="fab fa-linkedin-in"></i></div>
+          </div>
+          <div class="topic-card">
+            <div class="section-lbl">Temat</div>
+            <div class="topic-field">
+              <div class="topic-icon">✏️</div>
+              <div class="topic-text">Promocja na strzyżenie -20%</div>
+            </div>
+          </div>
+          <div class="gen-btn"><span>✨ Generuj post ✨</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number"><span>10</span></div><div class="stat-label">generacji dziennie</div></div>
+  <div class="stat"><div class="stat-number"><span>8</span></div><div class="stat-label">typów treści</div></div>
+  <div class="stat"><div class="stat-number"><span>5</span></div><div class="stat-label">platform</div></div>
+  <div class="stat"><div class="stat-number"><span>15 zł</span></div><div class="stat-label">Premium/miesiąc</div></div>
+</div>
+
+<section id="funkcje">
+  <div class="section-label">Funkcje</div>
+  <h2>Wszystko czego potrzebujesz</h2>
+  <p class="section-sub">Zero marketingowego doświadczenia. Postomat robi to za Ciebie.</p>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI dla branży</h3><p>Postomat zna specyfikę salonu, restauracji, sklepu czy usług lokalnych.</p></div>
+    <div class="feature-card"><div class="feature-icon">⚡</div><h3>Post w sekundy</h3><p>Wpisz temat, kliknij "Generuj" — gotowe. Kopiujesz jednym kliknięciem.</p></div>
+    <div class="feature-card"><div class="feature-icon">#️⃣</div><h3>Hashtagi w komplecie</h3><p>Dla Instagrama automatycznie dodajemy hashtagi zwiększające zasięg.</p></div>
+    <div class="feature-card"><div class="feature-icon">📋</div><h3>Historia i ulubione</h3><p>Wszystkie posty zapisywane automatycznie. Oznaczaj ulubione gwiazdką.</p></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><h3>Wielojęzycznie</h3><p>Polski, angielski, czeski, niemiecki. Generuj w dowolnym języku.</p></div>
+    <div class="feature-card"><div class="feature-icon">🎨</div><h3>Styl i ton</h3><p>Ustaw emoji i ton w Ustawieniach — raz na zawsze.</p></div>
+  </div>
+</section>
+
+<div class="platforms-section">
+  <div class="platforms-text">
+    <div class="section-label">Platformy</div>
+    <h2>Dopasowany do każdej platformy</h2>
+    <p>Postomat dobiera styl tekstu zależnie od platformy.</p>
+    <div class="platform-badges">
+      <div class="platform-badge"><div class="platform-badge-icon" style="background:#1877F2;color:#fff"><i class="fab fa-facebook-f"></i></div><div class="platform-badge-text"><strong>Facebook</strong><span>Storytelling, pytania</span></div></div>
+      <div class="platform-badge"><div class="platform-badge-icon" style="background:linear-gradient(135deg,#F09433,#DC2743);color:#fff"><i class="fab fa-instagram"></i></div><div class="platform-badge-text"><strong>Instagram</strong><span>Krótkie opisy + hashtagi</span></div></div>
+      <div class="platform-badge"><div class="platform-badge-icon" style="background:#4285F4;color:#fff"><i class="fab fa-google"></i></div><div class="platform-badge-text"><strong>Google</strong><span>Aktualizacje lokalne</span></div></div>
+      <div class="platform-badge"><div class="platform-badge-icon" style="background:#000;color:#fff"><i class="fab fa-tiktok"></i></div><div class="platform-badge-text"><strong>TikTok/LinkedIn</strong><span>Skrypty i posty</span></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="content-types">
+      <div class="ct-tile"><span class="icon">🎯</span><div class="name">Promocja</div></div>
+      <div class="ct-tile"><span class="icon">📢</span><div class="name">Ogłoszenie</div></div>
+      <div class="ct-tile"><span class="icon">💡</span><div class="name">Porada</div></div>
+      <div class="ct-tile"><span class="icon">🏆</span><div class="name">Konkurs</div></div>
+      <div class="ct-tile"><span class="icon">🌸</span><div class="name">Sezonowy</div></div>
+      <div class="ct-tile"><span class="icon">🎬</span><div class="name">Za kulisami</div></div>
+      <div class="ct-tile"><span class="icon">❓</span><div class="name">Pytanie</div></div>
+      <div class="ct-tile"><span class="icon">⭐</span><div class="name">Opinia</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="samouczek" class="how-section">
+  <div class="section-label">Samouczek</div>
+  <h2>4 proste kroki</h2>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-number">1</div><span class="step-icon">🏪</span><h3>Wybierz branżę</h3><p>Przy uruchomieniu wybierz czym się zajmujesz. AI dopasuje sugestie.</p></div>
+    <div class="step-card"><div class="step-number">2</div><span class="step-icon">✍️</span><h3>Wpisz temat</h3><p>Napisz o czym ma być post — "promocja", "nowe menu", itp.</p></div>
+    <div class="step-card"><div class="step-number">3</div><span class="step-icon">🎛️</span><h3>Wybierz typ i platformę</h3><p>Kliknij chip z typem (8 opcji) i ikonę platformy (5 możliwości).</p></div>
+    <div class="step-card"><div class="step-number">4</div><span class="step-icon">📋</span><h3>Kopiuj i wklej</h3><p>Kliknij "Generuj post" i za sekundy masz gotowy tekst.</p></div>
+  </div>
+
+  <div class="tutorial-detail">
+    <div class="tutorial-row">
+      <div class="tutorial-text">
+        <h3>Krok 1: Wybór branży</h3>
+        <p>Logowanie przez Google — jedno kliknięcie. Potem wybierasz branżę: salon, restauracja, sklep, usługi czy inna.</p>
+        <ul class="tutorial-checklist">
+          <li>Bez hasła, bez rejestracji</li>
+          <li>Wpływa na sugestie i styl</li>
+          <li>Możesz zmienić w Ustawieniach</li>
+        </ul>
+      </div>
+      <div class="tut-screen-wrap">
+        <div class="tut-phone-shell"><div class="tut-phone-notch"></div><div class="tut-phone-screen">
+          <div class="app-header" style="border-radius:0">
+            <div class="app-header-row1"><div class="app-icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="ab" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a8f10"/><stop offset="100%" style="stop-color:#24B617"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#ab)"/><text x="108" y="360" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="310" fill="white" letter-spacing="-10">P</text><rect x="318" y="320" width="130" height="96" rx="22" fill="white"/><text x="383" y="389" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="62" fill="#1a8f10" text-anchor="middle" letter-spacing="-2">AI</text></svg></div><div><div class="app-title">Postomat</div></div></div>
+          </div>
+          <div class="branch-screen">
+            <div class="branch-title">Czym się zajmujesz?</div>
+            <div class="branch-grid">
+              <div class="branch-tile sel"><div class="b-icon">✂️</div><div class="b-name">Salon</div></div>
+              <div class="branch-tile"><div class="b-icon">🍽️</div><div class="b-name">Restauracja</div></div>
+              <div class="branch-tile"><div class="b-icon">🛍️</div><div class="b-name">Sklep</div></div>
+              <div class="branch-tile"><div class="b-icon">🔧</div><div class="b-name">Usługi</div></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="tutorial-row reverse">
+      <div class="tutorial-text">
+        <h3>Krok 2: Formularz</h3>
+        <p>Trzy sekcje: typ treści (kolorowe chipy), platforma (5 ikon), temat posta.</p>
+        <ul class="tutorial-checklist">
+          <li>Chip z kropką oznacza typ</li>
+          <li>5 ikon platform</li>
+          <li>Wpisz temat lub dotknij sugestię</li>
+        </ul>
+      </div>
+      <div class="tut-screen-wrap">
+        <div class="tut-phone-shell"><div class="tut-phone-notch"></div><div class="tut-phone-screen">
+          <div class="app-header"><div class="app-header-row1"><div class="app-icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="ab" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a8f10"/><stop offset="100%" style="stop-color:#24B617"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#ab)"/><text x="108" y="360" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="310" fill="white" letter-spacing="-10">P</text><rect x="318" y="320" width="130" height="96" rx="22" fill="white"/><text x="383" y="389" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="62" fill="#1a8f10" text-anchor="middle" letter-spacing="-2">AI</text></svg></div><div><div class="app-title">Postomat</div><div class="app-sub">restauracja</div></div></div><div class="counter-bar"><div class="counter-left"><div class="counter-label">Darmowe</div><div class="counter-progress"><div class="counter-fill" style="width:40%"></div></div></div><div class="counter-val">4/10</div></div></div>
+          <div class="app-scroll">
+            <div class="section-lbl">Typ</div><div class="type-chips"><div class="type-chip"><div class="type-dot" style="background:#E53935"></div>Promocja</div><div class="type-chip sel" style="border-color:#FB8C00;color:#FB8C00"><div class="type-dot" style="background:#FB8C00"></div>Porada</div></div>
+            <div class="section-lbl">Platforma</div><div class="platform-row"><div class="plat-card"><i class="fab fa-facebook-f"></i></div><div class="plat-card sel"><i class="fab fa-instagram"></i></div><div class="plat-card"><i class="fab fa-google"></i></div></div>
+            <div class="topic-card"><div class="topic-field"><div class="topic-icon">✏️</div><div class="topic-text">Brunch — nowe menu</div></div></div>
+            <div class="gen-btn"><span>✨ Generuj ✨</span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="tutorial-row">
+      <div class="tutorial-text">
+        <h3>Krok 3: Wynik</h3>
+        <p>Gotowy tekst. Badge platformy pokazuje dla której sieci powstał post. Możesz edytować, kopować lub generować ponownie.</p>
+        <ul class="tutorial-checklist">
+          <li>Automatycznie w Historii</li>
+          <li>Edytuj tryb — zmień Fragment</li>
+          <li>Hashtagi dodane automatycznie</li>
+        </ul>
+      </div>
+      <div class="tut-screen-wrap">
+        <div class="tut-phone-shell"><div class="tut-phone-notch"></div><div class="tut-phone-screen">
+          <div class="result-appbar"><div class="result-title">Wygenerowany post</div></div>
+          <div class="result-body">
+            <div class="platform-badge-sm"><div class="plat-dot" style="background:#E1306C"></div><div class="plat-name">Instagram</div></div>
+            <div class="result-card"><div class="result-text">🍳 Brunch w każdą niedzielę od 10:00. Menu: świeże składniki, kawa specialty, domowe wypieki</div><div class="result-hashtags">#brunch #restauracja #weekend</div></div>
+          </div>
+          <div class="result-actions"><div class="result-btn-row"><div class="r-btn-primary">📋 Kopiuj</div><div class="r-btn-outline">↗ Udostępnij</div></div></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="tutorial-row reverse">
+      <div class="tutorial-text">
+        <h3>Krok 4: Historia</h3>
+        <p>Gradient header z paskiem 3 statystyk na górze. Każda karta: platforma, typ, gwiazdka do ulubionych.</p>
+        <ul class="tutorial-checklist">
+          <li>Wszystko w chmurze Firebase</li>
+          <li>Gwiazdka do ulubionych</li>
+          <li>Kopiuj ponownie z historii</li>
+          <li>Przesuń w lewo = usuń</li>
+        </ul>
+      </div>
+      <div class="tut-screen-wrap">
+        <div class="tut-phone-shell"><div class="tut-phone-notch"></div><div class="tut-phone-screen">
+          <div class="hist-appbar">
+            <div class="hist-title">Historia postów</div>
+            <div class="hist-stats-bar"><div class="hist-stat"><div class="hist-stat-val">12</div><div class="hist-stat-lbl">Wszystkich</div></div><div class="hist-stat"><div class="hist-stat-val">3</div><div class="hist-stat-lbl">Ulubionych</div></div><div class="hist-stat"><div class="hist-stat-val">5</div><div class="hist-stat-lbl">Tydzień</div></div></div>
+          </div>
+          <div class="hist-body">
+            <div class="post-card"><div class="post-card-header"><div class="pc-platform-badge"><div class="pc-plat-dot" style="background:#E1306C"></div><div class="pc-plat-label">IG</div></div><div class="pc-type-badge">Porada</div><div class="pc-star">⭐</div></div><div class="post-card-text">Brunch w niedzielę od 10:00...</div><div class="post-card-footer"><div class="pc-topic">🏷 Brunch</div><div class="pc-date">Dzisiaj</div></div></div>
+            <div class="post-card"><div class="post-card-header"><div class="pc-platform-badge"><div class="pc-plat-dot" style="background:#1877F2"></div><div class="pc-plat-label">FB</div></div><div class="pc-type-badge">Promocja</div><div class="pc-star">☆</div></div><div class="post-card-text">Promocja na strzyżenie -20%...</div><div class="post-card-footer"><div class="pc-topic">🏷 Promocja</div><div class="pc-date">Wczoraj</div></div></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" class="pricing-section">
+  <div class="section-label">Cennik</div>
+  <h2>Zacznij bezpłatnie</h2>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Free</div>
+      <div class="pricing-price">0 zł</div>
+      <div class="pricing-price-sub">na zawsze</div>
+      <ul class="pricing-features">
+        <li>10 generacji dziennie</li>
+        <li>8 typów treści</li>
+        <li>5 platform</li>
+        <li>Historia i ulubione</li>
+        <li class="no">Reklamy AdMob</li>
+      </ul>
+      <a href="#pobierz" class="pricing-cta">Pobierz za darmo</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">⭐ Najpopularniejszy</div>
+      <div class="pricing-name">Premium</div>
+      <div class="pricing-price">15 zł</div>
+      <div class="pricing-price-sub">miesięcznie</div>
+      <ul class="pricing-features">
+        <li>Bez limitu generacji</li>
+        <li>Wszystkie typy treści</li>
+        <li>Wszystkie platformy</li>
+        <li>Bez reklam</li>
+        <li>Priorytetowe wsparcie</li>
+      </ul>
+      <a href="#pobierz" class="pricing-cta">Wypróbuj Premium</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq-section">
+  <div class="section-label">FAQ</div>
+  <h2>Pytania i odpowiedzi</h2>
+  <div class="faq-grid">
+    <div class="faq-item"><div class="faq-q">Czy muszę mieć doświadczenie marketingowe?</div><div class="faq-a">Nie. Postomat jest dla właścicieli małych firm bez czasu ani wiedzy. Wystarczy temat — resztą zajmuje się AI.</div></div>
+    <div class="faq-item"><div class="faq-q">Jak dobra jest jakość postów?</div><div class="faq-a">AI zna polski rynek i branże. Posty brzmią naturalnie. Nie pasuje? Kliknij "Generuj ponownie".</div></div>
+    <div class="faq-item"><div class="faq-q">Czy dane są bezpieczne?</div><div class="faq-a">Tak. Historia w Firebase — tylko Ty masz dostęp. Zero dzielenia danych.</div></div>
+    <div class="faq-item"><div class="faq-q">Czy aplikacja publikuje za mnie?</div><div class="faq-a">Nie. Kopiujesz i wklejasz samodzielnie — pełna kontrola.</div></div>
+    <div class="faq-item"><div class="faq-q">Co po 10 generacjach dziennie?</div><div class="faq-a">Licznik resetuje się o północy. Premium = brak limitu za 15 zł.</div></div>
+    <div class="faq-item"><div class="faq-q">Mogę anulować Premium?</div><div class="faq-a">Tak, w Google Play Store. Zachowujesz dostęp do końca okresu.</div></div>
+  </div>
+</section>
+
+<section id="pobierz" class="cta-section">
+  <h2>Zacznij już dzisiaj</h2>
+  <p>Dołącz do właścicieli firm, którzy oszczędzają czas i budują obecność w social media.</p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-white">▶ Pobierz na Android</a>
+  </div>
+  <p style="margin-top:28px;font-size:.85rem;color:rgba(255,255,255,.4)">Google Play · Android 6.0+</p>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo"><div class="nav-logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="fb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a8f10"/><stop offset="100%" style="stop-color:#24B617"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#fb)"/><text x="108" y="360" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="310" fill="white" letter-spacing="-10">P</text><rect x="318" y="320" width="130" height="96" rx="22" fill="white"/><text x="383" y="389" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="62" fill="#1a8f10" text-anchor="middle" letter-spacing="-2">AI</text></svg></div><span class="nav-logo-text">Posto<span style="color:var(--green-light)">mat</span></span></div>
+      <p>Generator AI dla polskich firm. Szybko, po polsku, bez doświadczenia.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Aplikacja</h4>
+      <ul>
+        <li><a href="#funkcje">Funkcje</a></li>
+        <li><a href="#samouczek">Samouczek</a></li>
+        <li><a href="#cennik">Cennik</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Pomoc</h4>
+      <ul>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="mailto:kontakt@postomat.app">Kontakt</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="padding-top:24px;border-top:1px solid #2D4A2A;color:#4A6B47;text-align:center;font-size:.83rem">© 2026 Postomat · Zbudowane dla polskich przedsiębiorców</div>
+</footer>
+
+</body>
+</html>
