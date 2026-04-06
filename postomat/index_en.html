@@ -257,10 +257,17 @@
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
-      .hero { flex-direction: column; padding: 60px 5%; text-align: center; }
+      nav { height: 60px; }
+      .nav-logo-icon { width: 44px; height: 44px; border-radius: 11px; }
+      .nav-logo-icon svg { width: 44px; height: 44px; }
+      .nav-logo-text { font-size: 1.5rem; }
+      .nav-cta { display: none; }
+      nav .nav-links { display: none; }
+      .hero { flex-direction: column; padding: 40px 5% 48px; text-align: center; gap: 32px; }
+      .hero h2 { font-size: clamp(1.6rem, 7vw, 2.2rem); margin-bottom: 14px; }
+      .hero p { font-size: .97rem; margin-bottom: 28px; }
       .platforms-section { flex-direction: column; }
       .tutorial-row, .tutorial-row.reverse { flex-direction: column; }
-      nav .nav-links { display: none; }
     }
     @media (max-width: 600px) {
       .stats-bar { flex-direction: column; }
